@@ -53,7 +53,7 @@
 }
 
 .tbl-30{
-    width: 30%;
+    width: 40%;
 }
 
 table tr th{
@@ -65,6 +65,7 @@ table tr th{
 table tr td {
     padding: 1%;
 }
+
 .btn-primary{
     background-color: #1e90ff;
     padding: 1%;

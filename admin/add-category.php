@@ -79,6 +79,7 @@ if(isset($_POST['submit'])){
 
     if(isset($_FILES['image']['name'])){
         $image_name = $_FILES['image']['name'];
+        if($image_name != ""){
         $ext = end(explode('.', $image_name));
         $image_name = "Food_Category_".rand(000, 999).'.'.$ext;
         $source_path = $_FILES['image']['tmp_name'];
@@ -88,10 +89,10 @@ if(isset($_POST['submit'])){
 
         if($upload == false){
             $_SESSION['upload'] = "<div class='error'>Failed to upload image</div>";
-            header("location:".SITEURL.'admin/add-category.php');
+            header("location:".SITEURL.'admin/manage-category.php');
             die();
         }
-        
+    }
     }else{
         $image_name = "";
     }
