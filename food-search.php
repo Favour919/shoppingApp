@@ -3,8 +3,10 @@
     <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
         <div class="container">
-            
-            <h2>Foods on Your Search <a href="#" class="text-white">"Momo"</a></h2>
+        <?php
+        $search = $_POST['search'];
+        ?> 
+            <h2>Foods on Your Search <a href="#" class="text-white">"<?php echo $search; ?>"</a></h2>
 
         </div>
     </section>
@@ -17,107 +19,56 @@
         <div class="container">
             <h2 class="text-center">Food Menu</h2>
 
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
+            <?php 
 
-                <div class="food-menu-desc">
-                    <h4>Food Title</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
+            $sql = "SELECT * FROM tbl_food WHERE title like '%$search%' OR description like '%$search%'";
+            
+            $res = mysqli_query($conn, $sql);
 
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
+            $count = mysqli_num_rows($res);
 
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-burger.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Smoky Burger</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-burger.jpg" alt="Chicke Hawain Burger" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Nice Burger</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Food Title</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Food Title</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-momo.jpg" alt="Chicke Hawain Momo" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Chicken Steam Momo</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
+            if ($count > 0){
+                
+                while ($rows = mysqli_fetch_assoc($res) ) {
+                    # code...
+     
+                    $food_id = $rows['id'];
+                    $food_title = $rows['title'];
+                    $food_price = $rows['price'];
+                    $food_description = $rows['description'];
+                    $food_image = $rows['image_name'];
+     
+                ?>
+                    <div class="food-menu-box">
+                     <div class="food-menu-img">
+                 <?php
+                     if($food_image == ""){
+                         echo "<div class='error'>Failed to upload image</div>";
+                     }else{
+                         ?>
+                         <img src="<?php echo SITEURL; ?>images/food/<?php echo $food_image; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                         </div>
+                     <?php
+                     }
+                 ?>
+                     <div class="food-menu-desc">
+                         <h4><?php echo $food_title; ?></h4>
+                         <p class="food-price">$<?php echo $food_price; ?></p>
+                         <p class="food-detail">
+                         <?php echo $food_description; ?>
+                         </p>
+                         <br>
+     
+                         <a href="<?php echo SITEURL;?>order.php" class="btn btn-primary">Order Now</a>
+                     </div>
+                 </div>
+                 <?php
+                }
+            }else {
+                echo "Food not Available";
+            }
+                 
+                 ?>
 
 
             <div class="clearfix"></div>

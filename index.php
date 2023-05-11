@@ -1,4 +1,10 @@
 <?php include('partial-front/menu.php'); ?>
+
+<?php
+
+
+
+?>
 <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
         <div class="container">
@@ -12,6 +18,13 @@
     </section>
     <!-- fOOD sEARCH Section Ends Here -->
 
+    <?php
+
+        if(isset($_SESSION['order'])){
+            echo $_SESSION['order'];
+            unset($_SESSION['order']);
+        }
+     ?>
     <!-- CAtegories Section Starts Here -->
     <section class="categories">
         <div class="container">
@@ -34,7 +47,7 @@ $res = mysqli_query($conn, $sql);
                $category_image = $rows['image_name'];
 
            ?>
-               <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $id; ?> ">
+               <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $category_id; ?> ">
             <div class="box-3 float-container">
             <?php
                 if($category_image == ""){
@@ -106,7 +119,7 @@ $res = mysqli_query($conn, $sql);
                     </p>
                     <br>
 
-                    <a href="<?php echo SITEURL;?>order.php" class="btn btn-primary">Order Now</a>
+                    <a href="<?php echo SITEURL;?>order.php?food_id=<?php echo $food_id; ?>" class="btn btn-primary">Order Now</a>
                 </div>
             </div>
             <?php

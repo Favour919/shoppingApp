@@ -13,9 +13,9 @@
 
                             $res2 = mysqli_query($conn, $sql2);
 
-                            $count = mysqli_num_rows($res2);
+                            $count2 = mysqli_num_rows($res2);
 
-                                if ($count == 1){
+                                if ($count2 == 1){
                                     $rows2 = mysqli_fetch_assoc($res2);
 
                                     $title = $rows2['title'];
@@ -39,8 +39,8 @@
                     
 
                     ?>
-                    <form  method="post" enctype="multipart/form-data">
-                <table class="tbl-30">
+                    <form action="" method="post" enctype="multipart/form-data">
+                    <table class="tbl-30">
                 <tr>
                     <td>Title: </td>
                     <td>
@@ -110,7 +110,7 @@
                         
                         ?>
                         </select>
-                    </td>>
+                    </td>
                 </tr>
                 <tr>
                     <td>Featured: </td>
@@ -135,7 +135,9 @@
                 </tr>
             </table>
             </form>
-            <?php 
+                </div>
+</div>
+<?php 
 
 if(isset($_POST['submit'])){
     $id = $_POST['id'];
@@ -153,7 +155,7 @@ if(isset($_POST['submit'])){
         if($image_name != ""){
 
             $ext = end(explode('.', $image_name));
-            $image_name = "Food_Name_".rand(000, 999).'.'.$ext;
+            $image_name = "Food_Category_".rand(000, 999).'.'.$ext;
             $source_path = $_FILES['image']['tmp_name'];
             $destination_path = "../images/food/".$image_name;
 
@@ -161,15 +163,17 @@ if(isset($_POST['submit'])){
 
             if($upload == false){
                 $_SESSION['upload'] = "<div class='error'>Failed to upload image</div>";
-                header("location:".SITEURL.'admin/manage-food.php');
+                header("location:".SITEURL.'admin/add-food.php');
                 die();
             }
             if($current_image != ""){
+
+            
             $remove_path = "../images/food/".$current_image;
             $remove = unlink($remove_path);
             if($remove == false){
                 $_SESSION['failed-to-remove'] = "<div class='error'>Failed to upload image</div>";
-                header("location:".SITEURL.'admin/manage-food.php');
+                header("location:".SITEURL.'admin/add-food.php');
                 die();
             }
         }
@@ -183,7 +187,7 @@ if(isset($_POST['submit'])){
     $sql3 = "UPDATE tbl_food SET 
             title = '$title',
             description = '$description',
-            price = '$price',
+            price = $price,
             image_name = '$image_name',
             category_id = '$category',
             featured = '$featured',
@@ -193,15 +197,12 @@ if(isset($_POST['submit'])){
     $res3 = mysqli_query($conn, $sql3);
 
     if($res3 == TRUE){
-        $_SESSION['update'] = "<div class='success'>Food Updated successfully</div>";
+        $_SESSION['update'] = "<div class='success'>food Updated successfully</div>";
         header("location:".SITEURL.'admin/manage-food.php');
     }else{
         $_SESSION['update'] = "<div class='error'>Failed to update food</div>";
-        header("location:".SITEURL.'admin/add-food.php');
+        header("location:".SITEURL.'admin/manage-food.php');
     }
 }
 ?> 
-                </div>
-</div>
-
 <?php include('partial/footer.php'); ?>

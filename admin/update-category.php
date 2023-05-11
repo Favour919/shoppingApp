@@ -1,7 +1,7 @@
 <?php include('partial/menu.php'); ?>
 <div class="main-content">
                 <div class="wrapper">
-                    <h1>Manage category</h1>
+                    <h1>Update category</h1>
                     <br><br>
 
                     <?php 

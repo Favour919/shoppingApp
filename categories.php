@@ -24,7 +24,7 @@ $res = mysqli_query($conn, $sql);
                $category_image = $rows['image_name'];
 
            ?>
-               <a href="category-foods.html">
+               <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $category_id; ?> ">
             <div class="box-3 float-container">
             <?php
                 if($category_image == ""){

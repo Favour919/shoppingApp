@@ -8,43 +8,103 @@
 
                     <br><br><br>
 
+                    <?php
+
+                            if(isset($_SESSION['update'])){
+                                echo $_SESSION['update'];
+                                unset($_SESSION['update']);
+                            }
+                        ?>
+                        <br><br>
+
                     <table class="tbl-full">
                         <tr>
                             <th>S.N.</th>
-                            <th>Full Name</th>
-                            <th>Username</th>
+                            <th>Food</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Address</th>
                             <th>Actions</th>
                         </tr>
 
-                        <tr>
-                            <td>1.</td>
-                            <td>Favour</td>
-                            <td>Favour123</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
+                        <?php
+                            $sql = "SELECT * FROM tbl_order ORDER BY id desc";
 
-                        <tr>
-                            <td>2.</td>
-                            <td>Favour</td>
-                            <td>Favour123</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
+                            $res = mysqli_query($conn, $sql);
 
-                        <tr>
-                            <td>3.</td>
-                            <td>Favour</td>
-                            <td>Favour123</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
+                            $sn = 1;
+
+                            if ($res == TRUE) {
+                                # code...
+                                $count = mysqli_num_rows($res);
+
+                                if ($count > 0) {
+                                    # code...
+                                    while ($rows = mysqli_fetch_assoc($res) ) {
+                                        # code...
+
+                                        $id = $rows['id'];
+                                        $food = $rows['food'];
+                                        $price = $rows['price'];
+                                        $qty = $rows['qty'];
+                                        $total = $rows['total'];
+                                        $order_date = $rows['order_date'];
+                                        $status = $rows['status'];
+                                        $customer_name = $rows['customer_name'];
+                                        $customer_contact = $rows['customer_contact'];
+                                        $customer_email = $rows['customer_email'];
+                                        $customer_address = $rows['customer_address'];
+
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $sn++ ?></td>
+                                            <td><?php echo $food ?></td>
+                                            <td><?php echo $price ?></td>
+                                            <td><?php echo $qty ?></td>
+                                            <td><?php echo $total ?></td>
+                                            <td><?php echo $order_date ?></td>
+                                            <td><?php 
+                                                if($status == "Ordered"){
+                                                    echo "<label>$status</label>";
+                                                }elseif($status == "On Delivery"){
+                                                    echo "<label style='color: orange;'>$status</label>";
+                                                }elseif ($status == "Delivered") {
+                                                    echo "<label style='color: green;'>$status</label>";
+                                                }elseif ($status == "Cancelled") {
+                                                    echo "<label style='color: red;'>$status</label>";
+                                                }
+                                            
+                                            ?> 
+                                            </td>
+                                            <td><?php echo $customer_name ?></td>
+                                            <td><?php echo $customer_contact ?></td>
+                                            <td><?php echo $customer_email ?></td>
+                                            <td><?php echo $customer_address ?></td>
+                                            <td>
+                                                <a href="<?php echo SITEURL;?>admin/update-order.php?id=<?php echo $id;?>" class="btn-secondary">Update Admin</a>
+                                            </td>
+                                        </tr>
+                                        <?php
+
+                                }
+                                }else {
+                                # code...
+                                ?>
+                                    <tr>
+                                        <td colspan="6" class="error">Order not Available</td>
+                                    </tr>
+                                    <?php
+                                }
+
+                                }
+                                ?>
+                        
                     </table>
                 </div>
             </div>

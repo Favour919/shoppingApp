@@ -29,6 +29,16 @@
     color: white;
 }
 
+.success{
+    padding: 2%;
+    color: #2ed573;
+}
+
+.error{
+    padding: 2%;
+    color: #ff4757;
+}
+
 .clearfix{
     clear: both;
     float: none;
