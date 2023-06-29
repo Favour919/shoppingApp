@@ -95,7 +95,7 @@ if(isset($_GET['food_id'])){
 
                     $order_date = date("Y-m-d h:i:sa");
 
-                    $status = "ordered";
+                    $status = "Ordered";
 
                     $customer_name = $_POST['full-name'];
                     $customer_contact = $_POST['contact'];

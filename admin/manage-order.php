@@ -71,7 +71,7 @@
                                             <td><?php echo $order_date ?></td>
                                             <td><?php 
                                                 if($status == "Ordered"){
-                                                    echo "<label>$status</label>";
+                                                    echo "<label style='color: black;'>$status</label>";
                                                 }elseif($status == "On Delivery"){
                                                     echo "<label style='color: orange;'>$status</label>";
                                                 }elseif ($status == "Delivered") {
@@ -87,7 +87,7 @@
                                             <td><?php echo $customer_email ?></td>
                                             <td><?php echo $customer_address ?></td>
                                             <td>
-                                                <a href="<?php echo SITEURL;?>admin/update-order.php?id=<?php echo $id;?>" class="btn-secondary">Update Admin</a>
+                                                <a href="<?php echo SITEURL;?>admin/update-order.php?id=<?php echo $id;?>" class="btn-secondary">Update Order</a>
                                             </td>
                                         </tr>
                                         <?php
